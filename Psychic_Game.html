@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8">
+    <title>Psychic Game</title>
+  </head>
+  <body>
+  <h1> Welcome to My Psychic Game!</h1>
+  <div id="satisfied">
+      <h3>Guess what letter I'm thinking of A-Z</h3>
+      <p>Wins: 0</p>
+      <p>Losses: 0</p>
+      <p># of Guesses Remaining: 9</p>
+      <p>Letters Gussed:</p>
+
+    </div>
+    <script>
+    //computer's letter
+    var text = "";
+    //possible answers for computer's letters
+    var possible = "abcdefghijklmnopqrstuvwxyz";
+    //user's selected letter
+    var id = "";
+    // # of wins
+    var wins = 0;
+    // # of losses
+    var loses =0;
+    // guesses left
+    var left = 9;
+    // letters that have been guessed
+    var guess = [];
+    //function to make computer's guess
+    function makeid(){
+
+      text += possible.charAt(Math.floor(Math.random() * possible.length));
+
+    }
+  	//function to record and set user's selection the the id variable
+    document.onkeypress = function makeUserId (event){
+
+    id = String.fromCharCode(event.keyCode).toLowerCase();
+
+    makeid();
+    // if user guess = the last variable of the computer's guess let user know they won, add a win , reset guesses to 9 and remove all from array
+    if (id === text.charAt(text.length - 1)){
+      alert("You win!");
+      wins ++;
+      left = 9;
+      guess.splice(0,guess.length);
+
+    }
+    //if user guess != last variable of the computer's guess let user know that they're wrong, subtract a guess and add the users guess to the letters guessed
+    else{
+      alert("You're wrong!");
+      left --;
+      guess.push(id);
+    }
+    // When left = 0 let use know that they lose, reset guesses to 9, add a loss and remove all from array
+    if (left === 0){
+      alert("You lose!");
+      left = 9;
+      loses ++;
+      guess.splice(0,guess.length);      
+    }     
+    // HTML to be ijected into page
+          var html = "<h2>Guess what letter I'm thinking of A-Z</h2>" +
+          "<p>Wins: " + wins + "</p>" +
+          "<p>Losses: " + loses + "</p>" +
+          "<p># of Guesses Remaining: " + left + "</p>" +
+          "<p> Letters guessed: " + guess + "</p>";
+          
+
+          // Injects updated HTML into page everytime a variable changes
+          document.querySelector("#satisfied").innerHTML = html;
+};
+
+
+    </script>
+  </body>
+</html>

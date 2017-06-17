@@ -1,0 +1,35 @@
+#headings,
+#game{
+	text-align:center;
+}
+
+#martin{
+	margin-bottom:10px;
+}
+
+#theme{
+	margin-top:10px;
+}
+
+#game{
+	height:280px;
+	border-left: 5px solid #9effb8;
+	border-right: 5px solid #d46ce7;
+	border-top:5px solid #7cf4d3;
+	border-bottom:5px solid #e9f259;
+	font-size:22px;
+	line-height:60px;
+
+}
+
+#imageHolder{
+	height:280px;
+	border-left: 5px solid #89aee1;
+	border-top: 5px solid #d46ce7;
+	border-bottom:5px solid #7cf4d3;
+
+}
+
+#martin{
+	height:265px;
+}

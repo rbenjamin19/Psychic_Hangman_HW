@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8">
+    <title>Hangman Game</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.js"
+    integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
+    crossorigin="anonymous"></script>
+  </head>
+  <body>
+  <!-- Initial text -->
+  <div class="container">
+    <div id ="theme" class="col-lg-12">
+        <img class="img-responsive center-block" align="middle" src="https://cdn-az.allevents.in/banners/f8dcdc7682e26a99e1627ad56d57b72e" alt="90's theme" style="height:290px">
+    </div>
+
+    <div id="headings" class="col-lg-12">
+      <h2> Welcome to my 90's theme Hangman Game</h2>
+      <h3> Be sure not to guess the same letter twice! You'll lose a guess.</h3>
+      <h4> When you've correctly guessed a word click enter for the next word!</h4>
+    </div>
+    <!-- referenced to in html insert -->
+      <div class="col-lg-2"></div>
+      <div class="col-lg-8">
+        <div id="imageHolder" class="divi col-lg-6"> 
+          <img id="martin" class="img-responsive center-block" align="middle" src="" >
+        </div>
+        <div id="game" class="divi col-lg-6"> 
+          <p>Word: _ _ _ _ _ _ </p>
+          <p>Words found: 0 / 4 </p>
+          <p>Guesses Left: 9  </p>
+          <p>Letters Guessed:  </p>  
+        </div>
+      </div>
+    <script>
+      //records user key
+      var id = "";
+      //# of times user has correctly guessed a word
+      var wins = 0;
+      //# of guesses left
+      var left = 9;
+      //array of letters guessed incorrectly
+      var guess = [];
+      // letter #1
+      var let1 = "_ ";
+      // letter #2
+      var let2 = "_";
+      // letter #3
+      var let3 = " _";
+      // letter #4
+      var let4 = " _";
+      // letter #5
+      var let5 = " _";
+      // letter #6
+      var let6 = " _";
+      // Array of words to guess
+      var possible =["CATDOG", "ARTHUR", "MARTIN", "ReBoot"];
+      // word user is trying to guess
+      var text ="";
+      //creates random # to choose word from the array
+      function makeid(){
+        text += possible[Math.floor(Math.random()*possible.length)];
+      }
+      // assigns a word 
+      makeid();
+      //adds users key selection to a variable
+      document.onkeypress = function makeUserId (event){
+
+      id = String.fromCharCode(event.keyCode).toLowerCase();
+      //CATDOG conditions
+        if(wins == 5){
+          alert("Congratulations! You've beat the game!!")
+        }
+
+
+        if(text == "CATDOG"){
+
+            if (id == "c"){
+              let1 = "C";
+            }
+            
+            else if (id == "a"){
+              let2 = "A";
+            }
+            
+            else if (id == "t"){
+              let3 = "T";
+            }
+            else if (id == "d"){
+              let4 = "D";
+            }
+            else if (id == "o"){
+              let5 = "O";
+            }
+            else if (id == "g"){
+              let6 = "G";
+            }
+      //If guessed, remove from array and choose new word
+           else if (let1 == "C" && let2 == "A" && let3 == "T" && 
+            let4 == "D" && let5 == "O" && let6 == "G"){
+              alert("You've won!")
+              wins ++ ;
+              guess = [];
+              let1 = "_ ";
+              let2 = "_";
+              let3 = " _";
+              let4 = " _";
+              let5 = " _";
+              let6 = " _";
+              left = 9;
+              text = "";
+              $("#martin").attr("src","http://orig03.deviantart.net/a610/f/2008/279/b/8/catdog_by_stitch_666.jpg");
+              possible.splice( possible.indexOf("CATDOG"), 1 );
+              makeid();
+            }
+                 
+            else{
+              left --;
+              guess.push(id);
+            }
+
+         
+          if(left <1 ){
+            alert("You've lost try again!")
+            left = 9;
+            guess = [];
+            let1 = "_ ";
+            let2 = "_";
+            let3 = " _";
+            let4 = " _";
+            let5 = " _";
+            let6 = " _";
+            text = "";
+            makeid();
+          }          
+        };
+      //martin conditions
+      if(text == "MARTIN"){
+
+          if (id == "m"){
+            let1 = "M";
+          }
+          
+          else if (id == "a"){
+            let2 = "A";
+          }
+          
+          else if (id == "r"){
+            let3 = "R";
+          }
+          else if (id == "t"){
+            let4 = "T";
+          }
+
+          else if (id == "i"){
+            let5 = "I";
+          }
+          
+          else if (id == "n"){
+            let6 = "N";
+          }
+      //If guessed, remove from array and choose new word      
+         else if (let1 == "M" && let2 == "A" && let3 == "R" && let4 == "T" && let5 == "I" && let6 == "N"){
+            alert("You've won!")
+            wins ++ ;
+            guess = [];
+            let1 = "_ ";
+            let2 = "_";
+            let3 = " _";
+            let4 = " _";
+            let5 = " _";
+            let6 = " _";
+            left = 9;
+            text = "";
+            $("#martin").attr("src","https://images-na.ssl-images-amazon.com/images/M/MV5BMTg1MDE0NzA1N15BMl5BanBnXkFtZTcwOTkxNjA0MQ@@._V1._CR19,36,311,429_UY268_CR6,0,182,268_AL_.jpg");
+            possible.splice( possible.indexOf("MARTIN"), 1 );
+            makeid();
+          }
+               
+          else{
+            left --;
+            guess.push(id);
+          }
+
+        if(left <1 ){
+          alert("You've lost try again!")
+          left = 9;
+          guess = [];
+          let1 = "_ ";
+          let2 = "_";
+          let3 = " _";
+          let4 = " _";
+          let5 = " _";
+          let6 = " _";
+          text = "";
+          makeid();
+        }
+      };
+      //ReBoot conditions
+      if(text == "ReBoot"){
+
+          if (id == "r"){
+            let1 = "R";
+          }
+          
+          else if (id == "e"){
+            let2 = "e";
+          }
+          
+          else if (id == "b"){
+            let3 = "B";
+          }
+          else if (id == "o"){
+            let4 = "o";
+            let5 = "o";
+          }
+          
+          else if (id == "t"){
+            let6 = "t";
+          }
+
+          
+         else if (let1 == "R" && let2 == "e" && let3 == "B" && 
+          let4 == "o" && let5 == "o" && let6 == "t"){
+            alert("You've won!")
+            wins ++ ;
+            guess = [];
+            let1 = "_ ";
+            let2 = "_";
+            let3 = " _";
+            let4 = " _";
+            let5 = " _";
+            let6 = " _";
+            left = 9;
+            text = "";
+            $("#martin").attr("src","http://www.inwap.com/mf/reboot/cast/images/cast1st.jpg");
+            possible.splice( possible.indexOf("ReBoot"), 1 );
+            makeid();
+          }
+               
+          else{
+            left --;
+            guess.push(id);
+          }
+
+        if(left <1 ){
+          alert("You've lost try again!")
+          left = 9;
+          guess = [];
+          let1 = "_ ";
+          let2 = "_";
+          let3 = " _";
+          let4 = " _";
+          let5 = " _";
+          let6 = " _";
+          text = "";
+          makeid();
+        }   
+      };
+      //arthur conditions
+        if(text == "ARTHUR"){
+
+            if (id == "a"){
+              let1 = "A";
+            }
+            
+            else if (id == "r"){
+              let2 = "R";
+              let6 = "R";
+            }
+            
+            else if (id == "t"){
+              let3 = "T";
+            }
+            else if (id == "h"){
+              let4 = "H";
+            }
+            
+            else if (id == "u"){
+              let5 = "U";
+            }
+      //If guessed, remove from array and choose new word      
+           else if (let1 == "A" && let2 == "R" && let3 == "T" && let4 == "H" && let5 == "U" && let6 == "R"){
+              alert("You've won!")
+              wins ++ ;
+              guess = [];
+              let1 = "_ ";
+              let2 = "_";
+              let3 = " _";
+              let4 = " _";
+              let5 = " _";
+              let6 = " _";
+              left = 9;
+              text = "";
+              $("#martin").attr("src","http://www-tc.pbskids.org/arthur/health/img/resilience_home_1.png");
+              possible.splice( possible.indexOf("ARTHUR"), 1 );
+              makeid();
+            }
+                 
+            else{
+              left --;
+              guess.push(id);
+            }
+
+          if(left <1 ){
+            alert("You've lost try again!")
+            left = 9;
+            guess = [];
+            let1 = "_ ";
+            let2 = "_";
+            let3 = " _";
+            let4 = " _";
+            let5 = " _";
+            let6 = " _";
+            text = "";
+            makeid();
+          }
+        };
+
+          var wins2 = wins;
+          var guesses = left;
+          var guessed = guess; 
+          var html =  "<p>Word: " + let1 + let2 + let3 + let4 + let5 + let6 + "</p>" +
+            "<p>Words found: " + wins2 + " / 4</p>" +
+            "<p>Guesses Left: " + guesses + "</p>" +
+            "<p> Letters Guessed: " + guess + "</p>";
+
+          document.querySelector("#game").innerHTML = html;
+    };
+
+      </script>
+    </div>
+  </body>
+</html>
